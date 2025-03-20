@@ -64,6 +64,11 @@ def token():
     
     return jwt_token
 
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204  # Return a no-content response
+
+
 @app.route('/<uid>', methods=['GET'])
 def main(uid):
     # Ignore requests for "favicon.ico"
