@@ -66,31 +66,20 @@ def token():
 
 @app.route('/favicon.ico')
 def favicon():
-    return '', 204  # Return a no-content response
-
+    return '', 204  # This sends an empty response with a 204 No Content status code.
 
 @app.route('/<uid>', methods=['GET'])
 def main(uid):
-    # Ignore requests for "favicon.ico"
-    if uid == "favicon.ico":
-        return jsonify({"error": "Invalid request for favicon.ico"}), 400
-
-    try:
-        saturn_ = int(uid)  # Ensure uid is an integer
-    except ValueError:
-        return jsonify({"error": "Invalid UID. UID must be an integer."}), 400
-
-    # Proceed with the rest of your code
+    saturn_ = int(uid)
     garena = 1
     protobuf_data = create_protobuf(saturn_, garena)
     hex_data = protobuf_to_hex(protobuf_data)
-    aes_key = key
-    aes_iv = iv
+    aes_key = (key)
+    aes_iv = (iv)
     encrypted_hex = encrypt_aes(hex_data, aes_key, aes_iv)
     tokenn = token()
     infoo = apis(encrypted_hex, tokenn)
     hex_data = infoo
-
     if not hex_data:
         return jsonify({"error": "hex_data query parameter is missing"}), 400
 
@@ -109,7 +98,7 @@ def main(uid):
                 'region': user_info.region,
                 'level': user_info.level,
                 'Exp': user_info.Exp,
-                'bio': users.bioinfo[0].bio if users.bioinfo else None,
+                'bio': users.bioinfo[0].bio if users.bioinfo else None,  
                 'banner': user_info.banner,
                 'avatar': user_info.avatar,
                 'brrankscore': user_info.brrankscore,
@@ -146,6 +135,5 @@ def main(uid):
             })
     result['API Owner Telegram'] = ['@zeusthug']
     return jsonify(result)
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5002)
