@@ -3,4 +3,5 @@ Gunicorn
 user_agent
 requests
 pycryptodome
-protobuf
+protobuf==6.30.1
+
