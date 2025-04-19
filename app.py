@@ -88,8 +88,8 @@ def main(uid):
 
     try:
         users = decode_hex(hex_data)
-    except binascii.Error:
-        return jsonify({"error": "Invalid hex data"}), 400
+    except google.protobuf.message.DecodeError:
+        return jsonify({"error": "Invalid server"}), 400  # Replace the default internal server error message
 
     result = {}
 
