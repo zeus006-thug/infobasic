@@ -76,7 +76,7 @@ def main(uid):
     garena = 1
     protobuf_data = create_protobuf(saturn_, garena)
     hex_data = protobuf_to_hex(protobuf_data)
-    aes_key = key  # Ensure these are defined properly
+    aes_key = key  # Ensure these are defined
     aes_iv = iv
     encrypted_hex = encrypt_aes(hex_data, aes_key, aes_iv)
     tokenn = token()
@@ -88,9 +88,10 @@ def main(uid):
 
     try:
         users = decode_hex(hex_data)
-    except DecodeError:
-        app.logger.error("DecodeError: Parsing failed for region-specific account.")
-        return jsonify({"error": "Invalid server - account is not from the supported region"}), 400
+    except google.protobuf.message.DecodeError:
+        return jsonify({"error": "Invalid server - unable to parse data for this region"}), 400
+    except Exception as e:
+        return jsonify({"error": f"Unexpected error occurred: {str(e)}"}), 500
 
     result = {}
 
