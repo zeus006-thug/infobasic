@@ -90,7 +90,7 @@ def main(uid):
     try:
         users = decode_hex(hex_data)
     except (binascii.Error, google.protobuf.message.DecodeError):
-        return jsonify({"error": "Invalid Region"}), 400
+        return jsonify({"wrong_id": "Invalid Region"}), 400
 
     result = {}
 
